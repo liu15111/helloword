@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--View-->
+		<div id="app">
+			<ul v-for="item in data">
+				<li>{{item.id}}</li>
+				<li>{{item.name}}</li>
+				<li>{{item.price}}</li>
+			</ul>
+		</div>
+		
+	</body>
+	<script src="../js/vue.min.js" ></script>
+	<script src="../js/vue-resource.js" ></script>
+	<script type="text/javascript">
+		//Model
+//		var  data={
+//			msg:"hello 1702b students"
+//		}
+		
+		
+		//ViewModel
+		var vue=new Vue({
+			el:"#app",
+			data:{
+//				data:this.data,
+				data:[],
+			},
+			beforeCreate:function () {
+				console.log("实例刚刚被创建")
+			},
+			created:function () {
+				this.$http.get("data.json").then(function (res) {
+					this.data=res.data;
+					console.log(this.data);
+				})
+			},
+			beforeMount:function () {
+				console.log("模板编译之前")
+			},
+			mounted:function () {
+				console.log("模板编译完成")
+			}
+		})
+	</script>
+</html>
